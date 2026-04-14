@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Word Puzzle Game</title>
+    <style>
+        body {
+            background-color: #e8f5e9;
+            font-family: Verdana, sans-serif;
+            color: #222222;
+        }
+
+        #puzzle-box {
+            width: 600px;
+            margin: 80px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border: 4px solid #4caf50;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 30px;
+        }
+
+        #jumbled-text {
+            font-size: 45px;
+            color: #d32f2f;
+            letter-spacing: 6px;
+            margin-bottom: 30px;
+        }
+
+        #answer-input {
+            padding: 12px;
+            font-size: 18px;
+            width: 220px;
+            border: 2px solid #999999;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+        }
+
+        #feedback-msg {
+            margin-top: 25px;
+            font-size: 26px;
+        }
+
+        #animal-pic {
+            display: block;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 100%;
+            height: auto;
+            border: 3px dashed #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div id="puzzle-box">
+        <h1>Can you guess the animal?</h1>
+        <h3 id="jumbled-text"></h3>
+        
+        <div>
+            <input type="text" id="answer-input">
+            <button id="submit-btn">Check Answer</button>
+            <button id="continue-btn" style="display: none;">Play Next</button>
+        </div>
+        
+        <h2 id="feedback-msg"></h2>
+        
+        <img id="animal-pic" src="" alt="Animal" style="display: none;">
+    </div>
+    
+    <script>
+        let animalList = ["tiger", "rabbit", "monkey", "penguin", "dolphin"];
+        let mixedList = ["gitre", "tbriab", "yomnek", "ngnieup", "ilphnod"];
+        let picList = ["tiger.jpg", "rabbit.jpg", "monkey.jpg", "penguin.jpg", "dolphin.jpg"];
+
+        let level = 0;
+
+        function loadLevel() {
+            let jumbledWord = document.getElementById("jumbled-text");
+            let feedback = document.getElementById("feedback-msg");
+            let pic = document.getElementById("animal-pic");
+            let inputField = document.getElementById("answer-input");
+            let submitBtn = document.getElementById("submit-btn");
+            let continueBtn = document.getElementById("continue-btn");
+
+            jumbledWord.innerText = mixedList[level];
+            feedback.innerText = "";
+            pic.style.display = "none";
+            inputField.value = "";
+            inputField.style.display = "inline";
+            submitBtn.style.display = "inline";
+            continueBtn.style.display = "none";
+        }
+
+        function verifyWord() {
+            let inputField = document.getElementById("answer-input");
+            let userInput = inputField.value;
+            let typedWord = userInput.toLowerCase();
+            
+            let targetWord = animalList[level];
+            let feedback = document.getElementById("feedback-msg");
+            let pic = document.getElementById("animal-pic");
+            let submitBtn = document.getElementById("submit-btn");
+            let continueBtn = document.getElementById("continue-btn");
+
+            if (typedWord === targetWord) {
+                feedback.innerText = "Correct! Well Done!";
+                feedback.style.color = "blue";
+                
+                pic.src = picList[level];
+                pic.style.display = "block";
+                
+                inputField.style.display = "none";
+                submitBtn.style.display = "none";
+                continueBtn.style.display = "inline";
+                
+                level = level + 1;
+                
+                if (level === animalList.length) {
+                    level = 0;
+                }
+            } else {
+                feedback.innerText = "Incorrect, try again!";
+                feedback.style.color = "orange";
+                pic.style.display = "none";
+            }
+        }
+
+        let checkBtn = document.getElementById("submit-btn");
+        checkBtn.addEventListener("click", verifyWord);
+
+        let nextBtn = document.getElementById("continue-btn");
+        nextBtn.addEventListener("click", loadLevel);
+
+        loadLevel();
+    </script>
+</body>
+</html>
