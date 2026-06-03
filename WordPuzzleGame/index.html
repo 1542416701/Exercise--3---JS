@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head>//Variable names and function names are created by AI, featuring template-based visualization and easy identification.
     <meta charset="UTF-8">
     <title>Word Puzzle Game</title>
     <style>
@@ -93,7 +93,7 @@
         let picList = ["tiger.jpg", "rabbit.jpg", "monkey.jpg", "penguin.jpg", "dolphin.jpg"];
 
         let level = 0;
-
+//Some methods are written using AI, which makes DOM queries redundant. We did not implement manual pre-caching of global DOM elements.
         function loadLevel() {
             let jumbledWord = document.getElementById("jumbled-text");
             let feedback = document.getElementById("feedback-msg");
@@ -143,7 +143,7 @@
                 feedback.style.color = "orange";
                 pic.style.display = "none";
             }
-        }
+        }//In the "verifyWord" function, the branches for determining correctness or incorrectness are handled by AI. This is because writing code is quite cumbersome, and the internal CSS structure uses Copliot, making the CSS very neat.
 
         let checkBtn = document.getElementById("submit-btn");
         checkBtn.addEventListener("click", verifyWord);
